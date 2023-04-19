@@ -7,7 +7,9 @@ const endpoint =
 
 async function start() {
   const posts = await getPosts();
+  const users = await getUsers();
   showPosts(posts);
+  showUsers(users);
 }
 
 async function getPosts() {
@@ -15,10 +17,10 @@ async function getPosts() {
   //Fetches json element from Firebase
   const response = await fetch(`${endpoint}/posts.json`);
   const data = await response.json();
-  return preparePostData(data);
+  return prepareData(data);
 }
 
-function preparePostData(dataObject) {
+function prepareData(dataObject) {
   console.log("Prepare Data");
   //Makes the json-object to an array
   let dataArray = [];
@@ -31,7 +33,7 @@ function preparePostData(dataObject) {
 }
 
 function showPosts(posts) {
-  console.log("Show data");
+  console.log("Show posts");
   posts.forEach(showPost);
 
   function showPost(post) {
@@ -44,5 +46,32 @@ function showPosts(posts) {
   </tr>
   `;
     document.querySelector("#data_table").insertAdjacentHTML("beforeend", html);
+  }
+}
+
+async function getUsers() {
+  console.log("Get Users");
+  //Fetches json element from Firebase
+  const response = await fetch(`${endpoint}/users.json`);
+  const data = await response.json();
+  return prepareData(data);
+}
+
+function showUsers(user) {
+  console.log("Show users");
+  user.forEach(showUser);
+
+  function showUser(user) {
+    //Shows data in html
+    const html = /*html*/ `
+  <tr>
+    <td><image src=${user.image}></td>
+    <td>${user.mail}</td>
+    <td>${user.name}</td>
+    <td>${user.phone}</td>
+    <td>${user.title}</td>
+  </tr>
+  `;
+    document.querySelector("#user_table").insertAdjacentHTML("beforeend", html);
   }
 }
