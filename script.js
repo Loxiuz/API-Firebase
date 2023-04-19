@@ -13,7 +13,6 @@ async function start() {
     .querySelector(".create-post-btn")
     .addEventListener("click", createPostClicked);
 
-  // createPost("image", "title", "body");
   // createUser("image", "mail", "name", "phone", "title");
 
   // const postObject = parseJSONString(
