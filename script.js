@@ -19,13 +19,13 @@ async function getPosts() {
 }
 
 function preparePostData(dataObject) {
-  console.log("Prepare Post Data");
+  console.log("Prepare Data");
   //Makes the json-object to an array
   let dataArray = [];
   for (const key in dataObject) {
-    const post = dataObject[key];
+    const data = dataObject[key];
     const id = key;
-    dataArray.push(post);
+    dataArray.push(data);
   }
   return dataArray;
 }
@@ -40,6 +40,7 @@ function showPosts(posts) {
   <tr>
     <td><image src=${post.image}></td>
     <td>${post.title}</td>
+    <td>${post.body}</td>
   </tr>
   `;
     document.querySelector("#data_table").insertAdjacentHTML("beforeend", html);
