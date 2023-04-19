@@ -22,23 +22,25 @@ async function start() {
 }
 
 /*-----------------Posts-----------------*/
+//Fetches posts from Firebase
 async function getPosts() {
   console.log("Get Posts");
-  //Fetches json element from Firebase
   const response = await fetch(`${endpoint}/posts.json`);
   const data = await response.json();
   return prepareData(data);
 }
 
+//Shows posts in html
 function showPosts(posts) {
   console.log("Show posts");
+  //Deletes content in table before adding new content to make sure it updates correctly
   document.querySelector("#post_table").innerHTML = "";
 
   const htmlPostHeader = /*html*/ `
       <tr>
-        <th id="post_image">Image:</th>
-        <th id="post_title">Title:</th>
-        <th id="post_description">Description:</th>
+        <th id="post_image">Image</th>
+        <th id="post_title">Title</th>
+        <th id="post_description">Description</th>
       </tr>
   `;
   document
@@ -61,11 +63,14 @@ function showPosts(posts) {
   posts.forEach(showPost);
 }
 
+//Creates new post from the structur of json
 async function createPost(image, title, body) {
   console.log("Create post");
   const newPost = { image: image, title: title, body: body };
   console.log(newPost);
+  //The object gets made to a JSON-string
   const jsonString = JSON.stringify(newPost);
+  //Use of fetch to POST the json string
   const response = await fetch(`${endpoint}/posts.json`, {
     method: "POST",
     body: jsonString,
@@ -73,9 +78,11 @@ async function createPost(image, title, body) {
   console.log(response);
   const data = await response.json();
   console.log(data);
+  //Update to get the new post shown in the table
   updatePostsTable();
 }
 
+//Updates post table
 async function updatePostsTable() {
   console.log("Update post table");
   const posts = await getPosts();
@@ -83,9 +90,9 @@ async function updatePostsTable() {
 }
 
 /*------------------Users------------------*/
+//Fetches users from Firebase
 async function getUsers() {
   console.log("Get Users");
-  //Fetches json element from Firebase
   const response = await fetch(`${endpoint}/users.json`);
   const data = await response.json();
   return prepareData(data);
@@ -93,15 +100,16 @@ async function getUsers() {
 
 function showUsers(user) {
   console.log("Show users");
+  //Deletes content in table before adding new content to make sure it updates correctly
   document.querySelector("#user_table").innerHTML = "";
 
   const htmlUserHeader = /*html*/ `
     <tr>
-      <th id="user_image">Image:</th>
-      <th id="user_mail">Mail:</th>
-      <th id="user_name">Name:</th>
-      <th id="user_phone">Phone:</th>
-      <th id="user_title">Title:</th>
+      <th id="user_image">Image</th>
+      <th id="user_mail">Mail</th>
+      <th id="user_name">Name</th>
+      <th id="user_phone">Phone</th>
+      <th id="user_title">Title</th>
     </tr>
   `;
   document
@@ -126,6 +134,7 @@ function showUsers(user) {
   user.forEach(showUser);
 }
 
+//Creates new user from the structur of json
 async function createUser(image, mail, name, phone, title) {
   console.log("Creat user");
   const newUser = {
@@ -136,7 +145,9 @@ async function createUser(image, mail, name, phone, title) {
     title: title,
   };
   console.log(newUser);
+  //The object gets made to a JSON-string
   const jsonString = JSON.stringify(newUser);
+  //Use of fetch to POST the json string
   const response = await fetch(`${endpoint}/users.json`, {
     method: "POST",
     body: jsonString,
@@ -144,19 +155,21 @@ async function createUser(image, mail, name, phone, title) {
   console.log(response);
   const data = await response.json();
   console.log(data);
+  //Update to get the new user shown in the table
   updateUsersTable();
 }
 
+//Updates user table
 async function updateUsersTable() {
   console.log("Update user table");
   const users = await getUsers();
   showUsers(users);
 }
 
-/*------------------Preparation------------------*/
+/*------------------Preparation------------------*/ 3;
+//Makes the json-object to an array
 function prepareData(dataObject) {
   console.log("Prepare Data");
-  //Makes the json-object to an array
   let dataArray = [];
   for (const key in dataObject) {
     const data = dataObject[key];
