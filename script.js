@@ -20,18 +20,6 @@ async function getPosts() {
   return prepareData(data);
 }
 
-function prepareData(dataObject) {
-  console.log("Prepare Data");
-  //Makes the json-object to an array
-  let dataArray = [];
-  for (const key in dataObject) {
-    const data = dataObject[key];
-    const id = key;
-    dataArray.push(data);
-  }
-  return dataArray;
-}
-
 function showPosts(posts) {
   console.log("Show posts");
   posts.forEach(showPost);
@@ -74,4 +62,16 @@ function showUsers(user) {
   `;
     document.querySelector("#user_table").insertAdjacentHTML("beforeend", html);
   }
+}
+
+function prepareData(dataObject) {
+  console.log("Prepare Data");
+  //Makes the json-object to an array
+  let dataArray = [];
+  for (const key in dataObject) {
+    const data = dataObject[key];
+    const id = key;
+    dataArray.push(data);
+  }
+  return dataArray;
 }
