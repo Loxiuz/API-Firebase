@@ -1,7 +1,14 @@
 body {
   background-color: grey;
 }
-
+.create-post-btn {
+  width: 50%;
+  text-align: center;
+  padding-top: 1%;
+}
+.create-post-btn button {
+  font-size: 120%;
+}
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
