@@ -47,8 +47,8 @@ function showPosts(posts) {
     .querySelector("#post_table")
     .insertAdjacentHTML("beforeend", htmlPostHeader);
 
+  //Shows data in html
   function showPost(post) {
-    //Shows data in html
     const htmlPostData = /*html*/ `
   <tr>
     <td><image src=${post.image}></td>
@@ -116,8 +116,8 @@ function showUsers(user) {
     .querySelector("#user_table")
     .insertAdjacentHTML("beforeend", htmlUserHeader);
 
+  //Shows data in html
   function showUser(user) {
-    //Shows data in html
     const htmlUserData = /*html*/ `
   <tr>
     <td><image src=${user.image}></td>
