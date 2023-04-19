@@ -41,6 +41,7 @@ function showPosts(posts) {
         <th id="post_image">Image</th>
         <th id="post_title">Title</th>
         <th id="post_description">Description</th>
+        <th id="post_buttons"></th>
       </tr>
   `;
   document
@@ -54,6 +55,10 @@ function showPosts(posts) {
     <td><image src=${post.image}></td>
     <td>${post.title}</td>
     <td>${post.body}</td>
+    <td>
+      <button id="delete-btn">Delete</button>
+      <button id="update-btn">Update</button>
+    </td>
   </tr>
   `;
     document
@@ -66,7 +71,7 @@ function showPosts(posts) {
 //Creates new post from the structur of json
 async function createPost(image, title, body) {
   console.log("Create post");
-  const newPost = { image: image, title: title, body: body };
+  const newPost = { image, title, body };
   console.log(newPost);
   //The object gets made to a JSON-string
   const jsonString = JSON.stringify(newPost);
@@ -80,6 +85,36 @@ async function createPost(image, title, body) {
   console.log(data);
   //Update to get the new post shown in the table
   updatePostsTable();
+}
+
+//Delete post by id
+async function deletePost(id) {
+  console.log("Delete post");
+  //Calling fetch to make a request with DELETE on specified object
+  const response = await fetch(`${endpoint}/posts/${id}.json`, {
+    method: "DELETE",
+  });
+  //Only updates table if the response is successful
+  if (response.ok) {
+    console.log("Deletion successful");
+    updatePostsTable();
+  }
+}
+
+//Update content of a post by id
+async function updatePost(id, image, title, body) {
+  const postToUpdate = { image, title, body }; //post to update
+  const jsonString = JSON.stringify(postToUpdate); //Javascript object to JSON string
+  //Fetch PUT request with the specified element(id)
+  const response = await fetch(`${endpoint}/posts/${id}.json`, {
+    method: "PUT",
+    body: jsonString,
+  });
+  //Only updates table if response is successful
+  if (response.ok) {
+    console.log("Update successful");
+    updatePostsTable();
+  }
 }
 
 //Updates post table
@@ -137,13 +172,7 @@ function showUsers(user) {
 //Creates new user from the structur of json
 async function createUser(image, mail, name, phone, title) {
   console.log("Creat user");
-  const newUser = {
-    image: image,
-    mail: mail,
-    name: name,
-    phone: phone,
-    title: title,
-  };
+  const newUser = { image, mail, name, phone, title };
   console.log(newUser);
   //The object gets made to a JSON-string
   const jsonString = JSON.stringify(newUser);
