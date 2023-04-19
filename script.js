@@ -9,6 +9,10 @@ async function start() {
   updatePostsTable();
   updateUsersTable();
 
+  document
+    .querySelector(".create-post-btn")
+    .addEventListener("click", createPostClicked);
+
   // createPost("image", "title", "body");
   // createUser("image", "mail", "name", "phone", "title");
 
@@ -21,8 +25,18 @@ async function start() {
   // console.log(stringObject);
 }
 
+//When create post button is clicked
+function createPostClicked() {
+  const randomNumber = Math.floor(Math.random() * 100 + 1);
+  const title = `Title Post Number ${randomNumber}`;
+  const image = "image";
+  const body = "new body";
+
+  createPost(image, title, body);
+}
+
 /*-----------------Posts-----------------*/
-//Fetches posts from Firebase
+//Fetches posts from endpoint (Firebase)
 async function getPosts() {
   console.log("Get Posts");
   const response = await fetch(`${endpoint}/posts.json`);
@@ -53,18 +67,17 @@ function showPosts(posts) {
 
     //Click events for delete and update buttons
     document
-      .querySelector(".post-grid div:last-child .delete-btn")
+      .querySelector(".post-grid .post-item:last-child .delete-btn")
       .addEventListener("click", deleteClicked);
 
     document
-      .querySelector(".post-grid div:last-child .update-btn")
+      .querySelector(".post-grid .post-item:last-child .update-btn")
       .addEventListener("click", updateClicked);
 
     //When delete button is clicked
     function deleteClicked() {
       console.log("Delete clicked");
       deletePost(post.id);
-      console.log(post.id);
     }
 
     //When update button is clicked
