@@ -34,60 +34,47 @@ async function getPosts() {
 function showPosts(posts) {
   console.log("Show posts");
   //Deletes content in table before adding new content to make sure it updates correctly
-  document.querySelector("#post_table").innerHTML = "";
-
-  const htmlPostHeader = /*html*/ `
-      <tr>
-        <th id="post_image">Image</th>
-        <th id="post_title">Title</th>
-        <th id="post_description">Description</th>
-        <th id="post_buttons"></th>
-      </tr>
-  `;
-  document
-    .querySelector("#post_table")
-    .insertAdjacentHTML("beforeend", htmlPostHeader);
+  document.querySelector(".post-grid").innerHTML = "";
 
   //Shows data in html
   function showPost(post) {
     const htmlPostData = /*html*/ `
-      <tr>
-        <td><image src=${post.image}></td>
-        <td>${post.title}</td>
-        <td>${post.body}</td>
-        <td>
-          <button class="delete-btn">Delete</button>
-          <button class="update-btn">Update</button>
-        </td>
-      </tr>
+      <div class="post-item">
+        <image src=${post.image}>
+        <div>${post.title}</div>
+        <div>${post.body}</div>
+        <button class="delete-btn">Delete</button>
+        <button class="update-btn">Update</button>
+      </div>
       `;
     document
-      .querySelector("#post_table")
+      .querySelector(".post-grid")
       .insertAdjacentHTML("beforeend", htmlPostData);
 
     //Click events for delete and update buttons
     document
-      .querySelector("#post_table tr:last-child .delete-btn")
+      .querySelector(".post-grid div:last-child .delete-btn")
       .addEventListener("click", deleteClicked);
 
-    // document
-    //   .querySelector("#post_table tr:last-child .delete-btn")
-    //   .addEventListener("click", updateClicked);
+    document
+      .querySelector(".post-grid div:last-child .update-btn")
+      .addEventListener("click", updateClicked);
 
     //When delete button is clicked
     function deleteClicked() {
       console.log("Delete clicked");
-      // deletePost(post.uid);
+      // deletePost(post.id);
+      console.log(post.uid);
     }
 
-    // //When update button is clicked
-    // function updateClicked() {
-    //   const title = `${post.title} Updated`;
-    //   const body = "new body";
-    //   const image = post.image;
+    //When update button is clicked
+    function updateClicked() {
+      const title = `${post.title} Updated`;
+      const body = "new body";
+      const image = post.image;
 
-    //   updatePost(post.uid, image, title, body);
-    // }
+      updatePost(post.id, image, title, body);
+    }
   }
   posts.forEach(showPost);
 }
@@ -125,21 +112,21 @@ async function deletePost(id) {
   }
 }
 
-// //Update content of a post by id
-// async function updatePost(id, image, title, body) {
-//   const postToUpdate = { image, title, body }; //post to update
-//   const jsonString = JSON.stringify(postToUpdate); //Javascript object to JSON string
-//   //Fetch PUT request with the specified element(id)
-//   const response = await fetch(`${endpoint}/posts/${id}.json`, {
-//     method: "PUT",
-//     body: jsonString,
-//   });
-//   //Only updates table if response is successful
-//   if (response.ok) {
-//     console.log("Update successful");
-//     updatePostsTable();
-//   }
-// }
+//Update content of a post by id
+async function updatePost(id, image, title, body) {
+  const postToUpdate = { image, title, body }; //post to update
+  const jsonString = JSON.stringify(postToUpdate); //Javascript object to JSON string
+  //Fetch PUT request with the specified element(id)
+  const response = await fetch(`${endpoint}/posts/${id}.json`, {
+    method: "PUT",
+    body: jsonString,
+  });
+  //Only updates table if response is successful
+  if (response.ok) {
+    console.log("Update successful");
+    updatePostsTable();
+  }
+}
 
 //Updates post table
 async function updatePostsTable() {
@@ -160,7 +147,7 @@ async function getUsers() {
 function showUsers(user) {
   console.log("Show users");
   //Deletes content in table before adding new content to make sure it updates correctly
-  document.querySelector("#user_table").innerHTML = "";
+  document.querySelector(".user-table").innerHTML = "";
 
   const htmlUserHeader = /*html*/ `
     <tr>
@@ -172,7 +159,7 @@ function showUsers(user) {
     </tr>
   `;
   document
-    .querySelector("#user_table")
+    .querySelector(".user-table")
     .insertAdjacentHTML("beforeend", htmlUserHeader);
 
   //Shows data in html
@@ -187,7 +174,7 @@ function showUsers(user) {
   </tr>
   `;
     document
-      .querySelector("#user_table")
+      .querySelector(".user-table")
       .insertAdjacentHTML("beforeend", htmlUserData);
   }
   user.forEach(showUser);
