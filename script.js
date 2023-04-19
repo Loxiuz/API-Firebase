@@ -40,9 +40,9 @@ function showPosts(posts) {
   function showPost(post) {
     const htmlPostData = /*html*/ `
       <div class="post-item">
-        <image src=${post.image}>
-        <div>${post.title}</div>
-        <div>${post.body}</div>
+        <div><image src=${post.image}></>
+        <div id="post_title">${post.title}</div>
+        <div id="post_body">${post.body}</div>
         <button class="delete-btn">Delete</button>
         <button class="update-btn">Update</button>
       </div>
@@ -83,7 +83,6 @@ function showPosts(posts) {
 async function createPost(image, title, body) {
   console.log("Create post");
   const newPost = { image, title, body };
-  console.log(newPost);
   //The object gets made to a JSON-string
   const jsonString = JSON.stringify(newPost);
   //Use of fetch to POST the json string
@@ -91,11 +90,11 @@ async function createPost(image, title, body) {
     method: "POST",
     body: jsonString,
   });
-  console.log(response);
-  const data = await response.json();
-  console.log(data);
   //Update to get the new post shown in the table
-  updatePostsTable();
+  if (response.ok) {
+    console.log("creation successful");
+    updatePostsTable();
+  }
 }
 
 //Delete post by id
@@ -213,7 +212,7 @@ function prepareData(dataObject) {
   let dataArray = [];
   for (const key in dataObject) {
     const data = dataObject[key];
-    const id = key;
+    data.id = key;
     dataArray.push(data);
   }
   return dataArray;
