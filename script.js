@@ -63,8 +63,8 @@ function showPosts(posts) {
     //When delete button is clicked
     function deleteClicked() {
       console.log("Delete clicked");
-      // deletePost(post.id);
-      console.log(post.uid);
+      deletePost(post.id);
+      console.log(post.id);
     }
 
     //When update button is clicked
