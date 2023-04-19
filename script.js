@@ -51,19 +51,43 @@ function showPosts(posts) {
   //Shows data in html
   function showPost(post) {
     const htmlPostData = /*html*/ `
-  <tr>
-    <td><image src=${post.image}></td>
-    <td>${post.title}</td>
-    <td>${post.body}</td>
-    <td>
-      <button id="delete-btn">Delete</button>
-      <button id="update-btn">Update</button>
-    </td>
-  </tr>
-  `;
+      <tr>
+        <td><image src=${post.image}></td>
+        <td>${post.title}</td>
+        <td>${post.body}</td>
+        <td>
+          <button class="delete-btn">Delete</button>
+          <button class="update-btn">Update</button>
+        </td>
+      </tr>
+      `;
     document
       .querySelector("#post_table")
       .insertAdjacentHTML("beforeend", htmlPostData);
+
+    //Click events for delete and update buttons
+    document
+      .querySelector("#post_table tr:last-child .delete-btn")
+      .addEventListener("click", deleteClicked);
+
+    // document
+    //   .querySelector("#post_table tr:last-child .delete-btn")
+    //   .addEventListener("click", updateClicked);
+
+    //When delete button is clicked
+    function deleteClicked() {
+      console.log("Delete clicked");
+      // deletePost(post.uid);
+    }
+
+    // //When update button is clicked
+    // function updateClicked() {
+    //   const title = `${post.title} Updated`;
+    //   const body = "new body";
+    //   const image = post.image;
+
+    //   updatePost(post.uid, image, title, body);
+    // }
   }
   posts.forEach(showPost);
 }
@@ -101,21 +125,21 @@ async function deletePost(id) {
   }
 }
 
-//Update content of a post by id
-async function updatePost(id, image, title, body) {
-  const postToUpdate = { image, title, body }; //post to update
-  const jsonString = JSON.stringify(postToUpdate); //Javascript object to JSON string
-  //Fetch PUT request with the specified element(id)
-  const response = await fetch(`${endpoint}/posts/${id}.json`, {
-    method: "PUT",
-    body: jsonString,
-  });
-  //Only updates table if response is successful
-  if (response.ok) {
-    console.log("Update successful");
-    updatePostsTable();
-  }
-}
+// //Update content of a post by id
+// async function updatePost(id, image, title, body) {
+//   const postToUpdate = { image, title, body }; //post to update
+//   const jsonString = JSON.stringify(postToUpdate); //Javascript object to JSON string
+//   //Fetch PUT request with the specified element(id)
+//   const response = await fetch(`${endpoint}/posts/${id}.json`, {
+//     method: "PUT",
+//     body: jsonString,
+//   });
+//   //Only updates table if response is successful
+//   if (response.ok) {
+//     console.log("Update successful");
+//     updatePostsTable();
+//   }
+// }
 
 //Updates post table
 async function updatePostsTable() {
