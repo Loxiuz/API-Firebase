@@ -6,16 +6,18 @@ const endpoint =
   "https://first-78ee1-default-rtdb.europe-west1.firebasedatabase.app";
 
 async function start() {
-  showData(await getPosts());
+  const posts = await getPosts();
+  showPosts(posts);
 }
 
 async function getPosts() {
   console.log("Get Posts");
-  //Fetches json element from Firebase using get
+  //Fetches json element from Firebase
   const response = await fetch(`${endpoint}/posts.json`);
   const data = await response.json();
   return preparePostData(data);
 }
+
 function preparePostData(dataObject) {
   console.log("Prepare Post Data");
   //Makes the json-object to an array
@@ -27,10 +29,13 @@ function preparePostData(dataObject) {
   }
   return dataArray;
 }
-function showData(data) {
+
+function showPosts(posts) {
   console.log("Show data");
-  //Shows data in html
-  for (const post of data) {
+  posts.forEach(showPost);
+
+  function showPost(post) {
+    //Shows data in html
     const html = /*html*/ `
   <tr>
     <td><image src=${post.image}></td>
