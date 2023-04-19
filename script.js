@@ -10,8 +10,17 @@ async function start() {
   const users = await getUsers();
   showPosts(posts);
   showUsers(users);
+
+  const postObject = parseJSONString(
+    '{"title": "This is my awesome title", "image": "https://share.cederdorff.com/images/petl.jpg" }'
+  );
+  console.log(postObject);
+
+  const stringObject = stringify({ name: "John", age: 30, city: "New York" });
+  console.log(stringObject);
 }
 
+/*-----------------Posts-----------------*/
 async function getPosts() {
   console.log("Get Posts");
   //Fetches json element from Firebase
@@ -37,6 +46,9 @@ function showPosts(posts) {
   }
 }
 
+function createPost(title, image, body) {}
+
+/*------------------Users------------------*/
 async function getUsers() {
   console.log("Get Users");
   //Fetches json element from Firebase
@@ -64,6 +76,7 @@ function showUsers(user) {
   }
 }
 
+/*------------------Preparation------------------*/
 function prepareData(dataObject) {
   console.log("Prepare Data");
   //Makes the json-object to an array
@@ -74,4 +87,14 @@ function prepareData(dataObject) {
     dataArray.push(data);
   }
   return dataArray;
+}
+
+function parseJSONString(jsonString) {
+  const parsed = JSON.parse(jsonString);
+  return parsed;
+}
+
+function stringify(object) {
+  const jsonString = JSON.stringify(object);
+  return jsonString;
 }
