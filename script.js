@@ -28,7 +28,7 @@ async function start() {
 function showCreatePostDialog() {
   const dialog = document.querySelector("dialog");
   dialog.innerHTML = "";
-
+  //HTML for the dialog
   const dialogHtml = /* html */ `
       <form id="dialogForm">
         <label for="image">Image:</label><br>
@@ -97,7 +97,6 @@ function showPosts(posts) {
     document
       .querySelector(".post-grid .post-item:last-child #delete-btn")
       .addEventListener("click", deleteClicked);
-
     document
       .querySelector(".post-grid .post-item:last-child #update-btn")
       .addEventListener("click", updateClicked);
@@ -107,7 +106,6 @@ function showPosts(posts) {
       console.log("Delete clicked");
       deletePost(post.id);
     }
-
     //When update button is clicked
     function updateClicked() {
       const title = `${post.title} Updated`;
