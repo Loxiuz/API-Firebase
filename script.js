@@ -10,7 +10,7 @@ async function start() {
   updateUsersTable();
 
   document
-    .querySelector(".header-create-post-btn")
+    .querySelector(".header-create-post-btn button")
     .addEventListener("click", showCreatePostDialog);
 
   // createUser("image", "mail", "name", "phone", "title");
@@ -36,7 +36,7 @@ function showCreatePostDialog() {
         <label for="title">Title:</label><br>
         <input type="text" name="title" id="form_title_input"><br><br>
         <label for="body">Body:</label><br>
-        <input type="text" name="body" id="for_body_input"><br><br><br>
+        <input type="text" name="body" id="form_body_input"><br><br><br>
         <input type="button" id="submit-btn" value="Submit" onClick="submitClicked(this.form)">
       </form>
   `;
@@ -44,12 +44,23 @@ function showCreatePostDialog() {
   dialog.insertAdjacentHTML("beforeend", dialogHtml);
   dialog.showModal();
 }
+//When the submit button is click in the dialog
 function submitClicked(form) {
-  const image = form.image.value;
-  const title = form.title.value;
-  const body = form.body.value;
+  //Get the values from the input form
+  const image = form.image;
+  const title = form.title;
+  const body = form.body;
 
-  createPost(image, title, body);
+  //Confirm the input values aren't empty
+  if (image.value == "" || title.value == "" || body.value == "") {
+    for (const element of [image, title, body]) {
+      document.getElementById(`form_${element.name}_input`).placeholder =
+        "Can't be empty";
+    }
+  } else {
+    //Create a post with the values from the input
+    createPost(image.value, title.value, body.value);
+  }
 }
 
 /*-----------------Posts-----------------*/
@@ -109,7 +120,7 @@ function showPosts(posts) {
   posts.forEach(showPost);
 }
 
-//Creates new post from the structur of json
+//Creates new post from the json structure
 async function createPost(image, title, body) {
   console.log("Create post");
   const newPost = { image, title, body };
