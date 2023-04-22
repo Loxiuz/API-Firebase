@@ -85,8 +85,8 @@ function showPosts(posts) {
         <div><image src=${post.image}></>
         <div id="post_title">${post.title}</div>
         <div id="post_body">${post.body}</div>
-        <button class="delete-btn">Delete</button>
-        <button class="update-btn">Update</button>
+        <button id="delete-btn">Delete</button>
+        <button id="update-btn">Update</button>
       </div>
       `;
     document
@@ -95,11 +95,11 @@ function showPosts(posts) {
 
     //Click events for delete and update buttons
     document
-      .querySelector(".post-grid .post-item:last-child .delete-btn")
+      .querySelector(".post-grid .post-item:last-child #delete-btn")
       .addEventListener("click", deleteClicked);
 
     document
-      .querySelector(".post-grid .post-item:last-child .update-btn")
+      .querySelector(".post-grid .post-item:last-child #update-btn")
       .addEventListener("click", updateClicked);
 
     //When delete button is clicked
