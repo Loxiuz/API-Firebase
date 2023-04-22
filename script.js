@@ -10,8 +10,8 @@ async function start() {
   updateUsersTable();
 
   document
-    .querySelector(".create-post-btn")
-    .addEventListener("click", createPostClicked);
+    .querySelector(".header-create-post-btn")
+    .addEventListener("click", showCreatePostDialog);
 
   // createUser("image", "mail", "name", "phone", "title");
 
@@ -25,11 +25,29 @@ async function start() {
 }
 
 //When create post button is clicked
-function createPostClicked() {
-  const randomNumber = Math.floor(Math.random() * 100 + 1);
-  const title = `Title Post Number ${randomNumber}`;
-  const image = "image";
-  const body = "new body";
+function showCreatePostDialog() {
+  const dialog = document.querySelector("dialog");
+  dialog.innerHTML = "";
+
+  const dialogHtml = /* html */ `
+      <form id="dialogForm">
+        <label for="image">Image:</label><br>
+        <input type="text" name="image" id="form_image_input"><br><br>
+        <label for="title">Title:</label><br>
+        <input type="text" name="title" id="form_title_input"><br><br>
+        <label for="body">Body:</label><br>
+        <input type="text" name="body" id="for_body_input"><br><br><br>
+        <input type="button" id="submit-btn" value="Submit" onClick="submitClicked(this.form)">
+      </form>
+  `;
+
+  dialog.insertAdjacentHTML("beforeend", dialogHtml);
+  dialog.showModal();
+}
+function submitClicked(form) {
+  const image = form.image.value;
+  const title = form.title.value;
+  const body = form.body.value;
 
   createPost(image, title, body);
 }

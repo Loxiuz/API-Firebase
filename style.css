@@ -1,12 +1,12 @@
 body {
   background-color: grey;
 }
-.create-post-btn {
+.header-create-post-btn {
   width: 50%;
   text-align: center;
   padding-top: 1%;
 }
-.create-post-btn button {
+.header-create-post-btn button {
   font-size: 120%;
 }
 .grid-container {
