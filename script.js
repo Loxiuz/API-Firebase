@@ -27,6 +27,7 @@ async function start() {
 //When create post button is clicked
 function showCreatePostDialog() {
   const dialog = document.querySelector("dialog");
+  //To avoid duplication html elements
   dialog.innerHTML = "";
   //HTML for the dialog
   const dialogHtml = /* html */ `
