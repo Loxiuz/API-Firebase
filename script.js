@@ -245,7 +245,7 @@ async function updateUsersTable() {
   showUsers(users);
 }
 
-/*------------------Preparation------------------*/ 3;
+/*------------------Preparation------------------*/
 //Makes the json-object to an array
 function prepareData(dataObject) {
   console.log("Prepare Data");
