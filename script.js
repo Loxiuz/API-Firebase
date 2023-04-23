@@ -25,7 +25,7 @@ function showCreatePostDialog() {
   //HTML for the dialog
   const dialogHtml = /* html */ `
       <h2>Create Post</h2>
-      <form id="dialogForm">
+      <form id="dialog-form">
         <label for="image">Image:</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
         <label for="title">Title:</label><br>
@@ -74,15 +74,14 @@ function showUpdatePostDialog(post) {
   //HTML for the dialog
   const dialogHtml = /* html */ `
       <h2>Update Post</h2>
-      <form id="dialogForm">
+      <form id="dialog-form">
         <label for="image">Image:</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
         <label for="title">Title:</label><br>
         <input type="text" name="title" id="form_title_input"><br><br>
         <label for="body">Body:</label><br>
         <input type="text" name="body" id="form_body_input"><br><br><br>
-        <input type="button" id="submit-btn" value="Update" 
-          onClick="submitUpdateBtnClicked(this.form,${JSON.stringify(post)})">
+        <input type="button" id="submit-btn" value="Update"> 
       </form>
       <button id="close-btn">Close</button>
   `;
@@ -90,22 +89,34 @@ function showUpdatePostDialog(post) {
   dialog.insertAdjacentHTML("beforeend", dialogHtml);
   dialog.showModal();
 
+  //Click event for the submit button in update post dialog
+  const form = document.querySelector("#dialog-form");
+  document
+    .querySelector("#dialog-form #submit-btn")
+    .addEventListener("click", () => {
+      submitUpdateBtnClicked(form, post);
+    });
+
   //Event for the close button in update post dialog
   document.querySelector("dialog #close-btn").addEventListener("click", () => {
     document.querySelector("dialog").close();
   });
 }
 //When the submit button is clicked in the update post dialog
-async function submitUpdateBtnClicked(form, JSONpost) {
+async function submitUpdateBtnClicked(form, post) {
+  /* The form parameter is for the input values 
+     and the post parameter is for the current values on the current post */
   console.log("Submit update button clicked");
-  const post = JSON.parse(JSONpost);
-  console.log(post);
+
+  // Parse the stringified post object
+  // const post = JSON.parse(JSONpost);
+
   //Get the values from the input form
   let image = form.image.value;
   let title = form.title.value;
   let body = form.body.value;
 
-  //Checks if input is empty and if so will not change value
+  //Checks if input is empty and if so will not change the current value
   if (image == "") {
     image = post.image;
   }
@@ -115,9 +126,8 @@ async function submitUpdateBtnClicked(form, JSONpost) {
   if (body == "") {
     body = post.body;
   }
-  console.log(post);
-  //Update a post with the values
-  // await updatePost(post.id, image, title, body);
+  //Update the post with the values
+  await updatePost(post.id, image, title, body);
   document.querySelector("dialog").close();
 }
 
