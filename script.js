@@ -12,20 +12,13 @@ async function start() {
   document
     .querySelector(".header-create-post-btn button")
     .addEventListener("click", showCreatePostDialog);
-
-  // createUser("image", "mail", "name", "phone", "title");
-
-  // const postObject = parseJSONString(
-  //   '{"title": "This is my awesome title", "image": "https://share.cederdorff.com/images/petl.jpg" }'
-  // );
-  // console.log(postObject);
-
-  // const stringObject = stringify({ name: "John", age: 30, city: "New York" });
-  // console.log(stringObject);
 }
+
+/*-----------------Posts-----------------*/
 
 //When create post button is clicked
 function showCreatePostDialog() {
+  console.log("Show create post dialog");
   const dialog = document.querySelector("dialog");
   //To avoid duplication html elements
   dialog.innerHTML = "";
@@ -39,7 +32,7 @@ function showCreatePostDialog() {
         <input type="text" name="title" id="form_title_input"><br><br>
         <label for="body">Body:</label><br>
         <input type="text" name="body" id="form_body_input"><br><br><br>
-        <input type="button" id="submit-btn" value="Submit" onClick="submitBtnClicked(this.form)">
+        <input type="button" id="submit-btn" value="Create" onClick="submitBtnClicked(this.form)">
       </form>
       <button id="close-btn">Close</button>
   `;
@@ -52,8 +45,9 @@ function showCreatePostDialog() {
     document.querySelector("dialog").close();
   });
 }
-//When the submit button is click in the dialog
+//When the submit button is click in the create post dialog
 async function submitBtnClicked(form) {
+  console.log("Submit button clicked");
   //Get the values from the input form
   const image = form.image;
   const title = form.title;
@@ -72,7 +66,6 @@ async function submitBtnClicked(form) {
   }
 }
 
-/*-----------------Posts-----------------*/
 //Fetches posts from endpoint (Firebase)
 async function getPosts() {
   console.log("Get Posts");
@@ -182,7 +175,22 @@ async function updatePostsGrid() {
   showPosts(posts);
 }
 
+/*------------------Preparation of data------------------*/
+
+//Prepares data by making the json-object to an array
+function prepareData(dataObject) {
+  console.log("Prepare Data");
+  let dataArray = [];
+  for (const key in dataObject) {
+    const data = dataObject[key];
+    data.id = key;
+    dataArray.push(data);
+  }
+  return dataArray;
+}
+
 /*------------------Users------------------*/
+
 //Fetches users from Firebase
 async function getUsers() {
   console.log("Get Users");
@@ -252,26 +260,3 @@ async function updateUsersTable() {
   const users = await getUsers();
   showUsers(users);
 }
-
-/*------------------Preparation------------------*/
-//Makes the json-object to an array
-function prepareData(dataObject) {
-  console.log("Prepare Data");
-  let dataArray = [];
-  for (const key in dataObject) {
-    const data = dataObject[key];
-    data.id = key;
-    dataArray.push(data);
-  }
-  return dataArray;
-}
-/*-----------------------------------------------*/
-// function parseJSONString(jsonString) {
-//   const parsed = JSON.parse(jsonString);
-//   return parsed;
-// }
-
-// function stringify(object) {
-//   const jsonString = JSON.stringify(object);
-//   return jsonString;
-// }
