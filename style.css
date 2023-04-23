@@ -104,7 +104,7 @@ dialog #submit-btn {
 dialog #close-btn {
   position: relative;
   top: 1em;
-  font-size: 1em;
+  font-size: 0.75em;
   background-color: rgb(238, 195, 116);
   box-shadow: 0px 5px 5px black;
   border-radius: 1em;
