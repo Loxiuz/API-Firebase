@@ -47,6 +47,7 @@ function showCreatePostDialog() {
   dialog.insertAdjacentHTML("beforeend", dialogHtml);
   dialog.showModal();
 
+  //Event for the close button in create post dialog
   document.querySelector("dialog #close-btn").addEventListener("click", () => {
     document.querySelector("dialog").close();
   });
