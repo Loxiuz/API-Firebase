@@ -86,6 +86,7 @@ dialog {
   font-size: 1.3em;
   background-color: darkgray;
   width: 20em;
+  height: 22em;
   text-align: center;
   box-shadow: 0px 0px 100px black;
   border-radius: 1.5em;
@@ -99,6 +100,14 @@ dialog #submit-btn {
   width: 8em;
   box-shadow: 0px 5px 5px black;
   background-color: rgb(167, 214, 167);
+}
+dialog #close-btn {
+  position: relative;
+  top: 1em;
+  font-size: 1em;
+  background-color: rgb(238, 195, 116);
+  box-shadow: 0px 5px 5px black;
+  border-radius: 1em;
 }
 
 /* ------ Users (table) ------ */

@@ -31,6 +31,7 @@ function showCreatePostDialog() {
   dialog.innerHTML = "";
   //HTML for the dialog
   const dialogHtml = /* html */ `
+      <h2>Create Post</h2>
       <form id="dialogForm">
         <label for="image">Image:</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
@@ -38,15 +39,20 @@ function showCreatePostDialog() {
         <input type="text" name="title" id="form_title_input"><br><br>
         <label for="body">Body:</label><br>
         <input type="text" name="body" id="form_body_input"><br><br><br>
-        <input type="button" id="submit-btn" value="Submit" onClick="submitClicked(this.form)">
+        <input type="button" id="submit-btn" value="Submit" onClick="submitBtnClicked(this.form)">
       </form>
+      <button id="close-btn">Close</button>
   `;
 
   dialog.insertAdjacentHTML("beforeend", dialogHtml);
   dialog.showModal();
+
+  document.querySelector("dialog #close-btn").addEventListener("click", () => {
+    document.querySelector("dialog").close();
+  });
 }
 //When the submit button is click in the dialog
-function submitBtnClicked(form) {
+async function submitBtnClicked(form) {
   //Get the values from the input form
   const image = form.image;
   const title = form.title;
@@ -60,7 +66,8 @@ function submitBtnClicked(form) {
     }
   } else {
     //Create a post with the values from the input
-    createPost(image.value, title.value, body.value);
+    await createPost(image.value, title.value, body.value);
+    document.querySelector("dialog").close();
   }
 }
 
@@ -103,17 +110,17 @@ function showPosts(posts) {
       .addEventListener("click", updateClicked);
 
     //When delete button is clicked
-    function deleteClicked() {
+    async function deleteClicked() {
       console.log("Delete clicked");
-      deletePost(post.id);
+      await deletePost(post.id);
     }
     //When update button is clicked
-    function updateClicked() {
+    async function updateClicked() {
       const title = `${post.title} Updated`;
       const body = "new body";
       const image = post.image;
 
-      updatePost(post.id, image, title, body);
+      await updatePost(post.id, image, title, body);
     }
   }
   posts.forEach(showPost);
