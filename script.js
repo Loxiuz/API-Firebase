@@ -6,7 +6,7 @@ const endpoint =
   "https://first-78ee1-default-rtdb.europe-west1.firebasedatabase.app";
 
 async function start() {
-  updatePostsTable();
+  updatePostsGrid();
   updateUsersTable();
 
   document
@@ -133,7 +133,7 @@ async function createPost(image, title, body) {
   //Update to get the new post shown in the table
   if (response.ok) {
     console.log("creation successful");
-    updatePostsTable();
+    updatePostsGrid();
   }
 }
 
@@ -147,7 +147,7 @@ async function deletePost(id) {
   //Only updates table if the response is successful
   if (response.ok) {
     console.log("Deletion successful");
-    updatePostsTable();
+    updatePostsGrid();
   }
 }
 
@@ -163,13 +163,13 @@ async function updatePost(id, image, title, body) {
   //Only updates table if response is successful
   if (response.ok) {
     console.log("Update successful");
-    updatePostsTable();
+    updatePostsGrid();
   }
 }
 
 //Updates post table
-async function updatePostsTable() {
-  console.log("Update post table");
+async function updatePostsGrid() {
+  console.log("Update posts");
   const posts = await getPosts();
   showPosts(posts);
 }
