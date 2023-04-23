@@ -40,7 +40,7 @@ function showCreatePostDialog() {
   dialog.insertAdjacentHTML("beforeend", dialogHtml);
   dialog.showModal();
 
-  //Event for the close button in create post dialog
+  //Event for the close button in create post dialog which closes the dialog
   document.querySelector("dialog #close-btn").addEventListener("click", () => {
     document.querySelector("dialog").close();
   });
@@ -97,7 +97,7 @@ function showUpdatePostDialog(post) {
       submitUpdateBtnClicked(form, post);
     });
 
-  //Event for the close button in update post dialog
+  //Event for the close button in update post dialog which closes the dialog
   document.querySelector("dialog #close-btn").addEventListener("click", () => {
     document.querySelector("dialog").close();
   });
