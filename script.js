@@ -46,7 +46,7 @@ function showCreatePostDialog() {
   dialog.showModal();
 }
 //When the submit button is click in the dialog
-function submitClicked(form) {
+function submitBtnClicked(form) {
   //Get the values from the input form
   const image = form.image;
   const title = form.title;
