@@ -26,7 +26,7 @@ function showCreatePostDialog() {
   const dialogHtml = /* html */ `
       <h2>Create Post</h2>
       <form id="dialog-form">
-        <label for="image">Image:</label><br>
+        <label for="image">Image (link):</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
         <label for="title">Title:</label><br>
         <input type="text" name="title" id="form_title_input"><br><br>
@@ -75,7 +75,7 @@ function showUpdatePostDialog(post) {
   const dialogHtml = /* html */ `
       <h2>Update Post</h2>
       <form id="dialog-form">
-        <label for="image">Image:</label><br>
+        <label for="image">Image (link):</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
         <label for="title">Title:</label><br>
         <input type="text" name="title" id="form_title_input"><br><br>
