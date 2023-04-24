@@ -73,7 +73,7 @@ function showUpdatePostDialog(post) {
   dialog.innerHTML = "";
   //HTML for the dialog
   const dialogHtml = /* html */ `
-      <h2>Update Post</h2>
+      <h2>Update ${post.title}</h2>
       <form id="dialog-form">
         <label for="image">Image (link):</label><br>
         <input type="text" name="image" id="form_image_input"><br><br>
